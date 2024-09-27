@@ -9,9 +9,10 @@ import { ECommerceApiStack } from   '../lib/e_commerceApi-stacks';
 //instancia a aplicação CDK
 const app = new cdk.App();
 
+//configurações do ambiente
 const env: cdk.Environment = {
-    account:"123456789012",
-    region:"us-east-1"
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION
 };
 
 //tags para identificar os recursos
