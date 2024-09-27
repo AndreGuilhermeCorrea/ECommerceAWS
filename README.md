@@ -52,11 +52,20 @@ Faz o deploy da infraestrutura para a conta AWS.cdk deploy:
 
 ## Outros comandos úteis
 
- * `npm run build`   compila TypeScript para JavaScript
- * `npm run watch`   observa por mudanças e compila
- * `npm run test`    executa os testes unitários com o Jest
- * `npx cdk deploy`  faz o deploy desta stack para sua conta/região AWS padrão
- * `npx cdk diff`    compara a stack implantada com o estado atual
- * `npx cdk synth`   emite o template CloudFormation sintetizado
+ * `npm run build`      compila TypeScript para JavaScript
+ * `npm run watch`      observa por mudanças e compila
+ * `npm run test`       executa os testes unitários com o Jest
+ * `npx cdk deploy`     faz o deploy desta stack para sua conta/região AWS padrão
+ * `cdk deploy --all`   faz o deploy de todas as stacks para sua conta/região AWS padrão	
+ * `npx cdk diff`       compara a stack implantada com o estado atual
+ * `npx cdk synth`      emite o template CloudFormation sintetizado
+ * `cdk list`           lista as stacks gerenciadas por este app
+ * `cdk destroy --all`  deleta todas as stacks gerenciadas por este app	
+
+ Foram também instaladas as seguintes dependências:
+ 
+ `npm install aws-sdk @types/aws-lambda uuid @types/uuid --save-dev`
+
+  *obs: o pacote aws-sdk é necessário para interagir com os serviços da AWS, enquanto o uuid é utilizado para gerar identificadores únicos para os registros do DynamoDB.
 
 Será adicionado mais componentes à infraestrutura. Fique ligado!
