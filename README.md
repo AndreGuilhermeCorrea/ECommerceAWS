@@ -2,6 +2,21 @@
 
 Este é um projeto para desenvolvimento CDK com TypeScript.
 
+## Sobre o projeto:
+
+O projeto consiste em uma aplicação de e-commerce com uma API RESTful que permite a criação, leitura, atualização e exclusão de produtos.  A aplicação é 100% em cloud, tendo toda sua infraestrutura criada em AWS CloudFormation com AWS CDK. A aplicação é composta por uma função Lambda que processa as requisições HTTP, um banco de dados DynamoDB para armazenar os produtos, e uma API Gateway para expor a função Lambda na internet.
+
+## Sobre as tecnologias utilizadas:
+
+O ambiente de desenvolvimento utilizado no projeto foi preparado com as seguintes ferramentas e tecnologias:
+
+* Node.js e NPM:        - Utilizados para gerenciar pacotes e dependências do projeto, garantindo que a aplicação possa ser construída e implantada corretamente.
+* AWS CLI:              - Ferramenta de linha de comando da AWS para gerenciar e monitorar recursos na nuvem, sendo essencial para o deploy e interação com os serviços AWS.
+* AWS CDK (Cloud Development Kit): - Utilizado para definir e provisionar a infraestrutura da aplicação por meio de código. A versão do CDK foi instalada e verificada para garantir a compatibilidade com o projeto.
+* Visual Studio Code:   - IDE utilizada para o desenvolvimento do código da aplicação e infraestrutura.
+* Postman:              - Aplicativo utilizado para testar e validar as requisições HTTP, tanto localmente quanto na AWS.
+* Docker Desktop:       - Ferramenta utilizada para compilar e testar localmente as funções Lambda antes de implantá-las na AWS.
+
 ## Sobre alguns conceitos importantes do AWS:
 
  * AWS: Amazon Web Services, plataforma de serviços em nuvem da Amazon.
@@ -39,6 +54,7 @@ Este é um projeto para desenvolvimento CDK com TypeScript.
  * Monitoramento: Logs, métricas e rastreamento para depurar e otimizar funções.
  * Gráficos de Monitoramento: CloudWatch oferece métricas como invocações e erros.
  * Logs no CloudWatch: Registra detalhes de execução e erros de cada função Lambda.
+ * Logs group: Agrupamento de logs para facilitar a busca e análise de registros.
  * Monitoramento com X-Ray: Ferramenta para rastrear e depurar execuções distribuídas.
 
 ## Sobre o uso do Docker
@@ -57,21 +73,23 @@ Este é um projeto para desenvolvimento CDK com TypeScript.
  * Artefatos: Pacotes de código, dependências e configurações necessários para implantar uma aplicação.
  * CDK x Docker: Docker para criar a imagem localmente na maquina para que o cdk possa fazer o processo de build e deploy na AWS pela imagem criada.
 
-O ambiente de desenvolvimento utilizado no projeto foi preparado com as seguintes ferramentas e tecnologias:
+ ## Sobre o uso do Postman
 
-* Node.js e NPM:        - Utilizados para gerenciar pacotes e dependências do projeto, garantindo que a aplicação possa ser construída e implantada corretamente.
-* AWS CLI:              - Ferramenta de linha de comando da AWS para gerenciar e monitorar recursos na nuvem, sendo essencial para o deploy e interação com os serviços AWS.
-* AWS CDK (Cloud Development Kit): - Utilizado para definir e provisionar a infraestrutura da aplicação por meio de código. A versão do CDK foi instalada e verificada para garantir a compatibilidade com o projeto.
-* Visual Studio Code:   - IDE utilizada para o desenvolvimento do código da aplicação e infraestrutura.
-* Postman:              - Aplicativo utilizado para testar e validar as requisições HTTP, tanto localmente quanto na AWS.
-* Docker Desktop:       - Ferramenta utilizada para compilar e testar localmente as funções Lambda antes de implantá-las na AWS.
+ * Postman: Ferramenta para testar e validar APIs, com suporte a requisições HTTP e WebSocket.
+ * Requisição: Ação de solicitar dados de um servidor, com métodos HTTP como GET, POST, PUT, DELETE.
+ * GET: Por hora apenas, caso seja enviado uma requisição POST o API Gateway irá retornar um erro 405 Method Not Allowed com a mensagem: "Error".
 
-Para uso do cdk estou utilizando acesso por `sso`:
+ *obs:  utilizado URL gerado pelo deploy da API Gateway para testar as requisições HTTP.
+        "/": rota principal(root) da API
+        "/products": resposta da função Lambda criada (Configurada na função de produtos) em json.
+
+### Alguns comandos importantes:
+
+ Para uso do cdk estou utilizando acesso por `sso`:
  * `aws sso login --profile <nome_profile>`
 
   *obs: poderia ser por usuário `iam` com as respectivas permissões
 
-### Alguns passos importantes:
  Cria o diretório do projeto (ECommerceAWS):
 
  * `mkdir ECommerceAWS && cd ECommerceAWS`
@@ -92,38 +110,36 @@ Para uso do cdk estou utilizando acesso por `sso`:
 
   *obs: o CDK já configura o tsconfig.json automaticamente.
 
+ Foram também instaladas as seguintes dependências:
+ 
+ * `npm install aws-sdk @types/aws-lambda uuid @types/uuid --save-dev`
+
+  *obs: o pacote aws-sdk é necessário para interagir com os serviços da AWS, enquanto o uuid é utilizado para gerar identificadores únicos para os registros do DynamoDB.
+
  Gera o template CloudFormation do código TypeScript:
 
  * `cdk synth`
 
  Prepara o ambiente da AWS para receber os recursos (apenas na primeira execução). cdk bootstrap: 
 
- * `cdk bootstrap idAccount/region --profile <nome_profile>`
+ * `cdk bootstrap aws://<idAccount>/<region> --profile <nome_profile>`
 
     *obs: Certificar de que o Docker Desktop está ativo e configurado para rodar containers Linux, pois o CDK utiliza containers para compilar e executar as funções Lambda.
 
-Faz o deploy da infraestrutura para a conta AWS.cdk deploy: 
+ Faz o deploy da infraestrutura para a conta AWS.cdk deploy: 
 
- * `cdk deploy --profile <nome_profile> `
+ * `cdk deploy --all --profile <nome_profile> `
 
   *obs: o arquivo `cdk.json` informa ao CDK Toolkit como executar sua aplicação.
 
-## Outros comandos úteis
+ Lista todas as stacks gerenciadas por esta aplicação:
 
- * `npm run build`      compila TypeScript para JavaScript
- * `npm run watch`      observa por mudanças e compila
- * `npm run test`       executa os testes unitários com o Jest
- * `npx cdk deploy`     faz o deploy desta stack para sua conta/região AWS padrão
- * `cdk deploy --all`   faz o deploy de todas as stacks para sua conta/região AWS padrão	
- * `npx cdk diff`       compara a stack implantada com o estado atual
- * `npx cdk synth`      emite o template CloudFormation sintetizado
- * `cdk list`           lista as stacks gerenciadas por este app
- * `cdk destroy --all`  deleta todas as stacks gerenciadas por este app	
-
- Foram também instaladas as seguintes dependências:
+ * `cdk list` 
  
- `npm install aws-sdk @types/aws-lambda uuid @types/uuid --save-dev`
+ Destrói todos os recursos criados (Ocional):
 
-  *obs: o pacote aws-sdk é necessário para interagir com os serviços da AWS, enquanto o uuid é utilizado para gerar identificadores únicos para os registros do DynamoDB.
+ * `cdk destroy --all --profile <nome_profile> ` 
+
+  *obs: o comando `cdk destroy` remove todos os recursos criados pela aplicação, exceto o bucket S3 e os logs do CloudWatch. Devem ser removidos manualmente.	
 
 *Será adicionado mais componentes à infraestrutura. Fique ligado!
