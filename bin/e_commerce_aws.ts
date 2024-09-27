@@ -25,7 +25,14 @@ const tags = {
 const productsAppStack = new ProductsAppStack(app, 'ProductsAppStack', {tags: tags, env: env});
 
 //cria o stack da api
-const eCommerceApiStack = new ECommerceApiStack(app, 'ECommerceApiStack', {tags: tags, env: env, productsFunction: productsAppStack.productsFetHandler});
+const eCommerceApiStack = new ECommerceApiStack(app, 'ECommerceApiStack', {
+    //funções lambda que serão invocadas pelo api gateway
+    productsAdminFunction: productsAppStack.productsAdminHandler,
+    productsFunction: productsAppStack.productsFetHandler,
+    //configurações do stack
+    tags: tags, 
+    env: env
+});
 
 //deixa explicito que o stack da api depende do stack de produtos
 eCommerceApiStack.addDependency(productsAppStack);

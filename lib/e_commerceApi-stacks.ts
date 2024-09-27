@@ -7,9 +7,12 @@ import * as cwlogs from "aws-cdk-lib/aws-logs";
 
 //propriedades do stack
 interface ECommerceApiStackProps extends cdk.StackProps {
-    //função lambda que será invocada pelo api gateway
+    //função lambda que será invocada pelo api gateway para obter os produtos
     productsFunction: lambdaNodejs.NodejsFunction;
+    //função lambda que será invocada pelo api gateway para administração da tabela
+    productsAdminFunction: lambdaNodejs.NodejsFunction;
 }
+
 //classes que representam o stack
 export class ECommerceApiStack extends cdk.Stack {
     //construtor: recebe o escopo, o id e as propriedades do stack
@@ -41,9 +44,27 @@ export class ECommerceApiStack extends cdk.Stack {
         });
         //cria um recurso de integração para os produtos
         const productsFetchIntegration = new apigateway.LambdaIntegration(props.productsFunction);
+        
+        // "GET /products"
         //cria um recurso para os produtos
         const productsResouce = api.root.addResource("products");
         //adiciona um metodo para o recurso
         productsResouce.addMethod("GET", productsFetchIntegration);
+
+        // "GET /products/{id}"
+        const productIdResource = productsResouce.addResource("{id}");
+        productIdResource.addMethod("GET", productsFetchIntegration);
+
+        //integração para a função de administração
+        const productsAdminIntegration = new apigateway.LambdaIntegration(props.productsAdminFunction);
+
+        // "POST /products"
+        productsResouce.addMethod("POST", productsAdminIntegration);
+
+        // "PUT /products/{id}"
+        productIdResource.addMethod("PUT", productsAdminIntegration);
+
+        // "DELETE /products/{id}"
+        productIdResource.addMethod("DELETE", productsAdminIntegration);
     }
 }
