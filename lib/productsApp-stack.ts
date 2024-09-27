@@ -42,6 +42,14 @@ export class ProductsAppStack extends cdk.Stack {
                 sourceMap: false,
             },
             timeout: cdk.Duration.seconds(5),
+            //concede permissão para conhecer a tabela
+            environment: {
+                //variaveis de ambiente passando o nome da tabela
+                PRODUCTS_TABLE_NAME: this.productsTable.tableName,
+            }
         });
+    
+        //concede permissão de leitura à tabela
+        this.productsTable.grantReadData(this.productsFetHandler);
     }
 }
