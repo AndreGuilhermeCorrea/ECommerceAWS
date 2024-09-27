@@ -58,7 +58,7 @@ export class ProductsAppStack extends cdk.Stack {
         this.productsAdminHandler = new lambdaNodejs.NodejsFunction(this, "ProductsAdminFunction", {
             runtime: lambda.Runtime.NODEJS_20_X,
             functionName: "ProductsAdminFunction",
-            entry: "lambda/products/ProductsAdminFunction.ts",
+            entry: "lambda/products/productsAdminFunction.ts",
             handler: "handler",
             //configurações do ambiente
             memorySize: 512,
@@ -74,7 +74,7 @@ export class ProductsAppStack extends cdk.Stack {
                 PRODUCTS_TABLE_NAME: this.productsTable.tableName,
             }
         });
-        
+
         //concede permissão de escrita à tabela
         this.productsTable.grantWriteData(this.productsAdminHandler);
     }
