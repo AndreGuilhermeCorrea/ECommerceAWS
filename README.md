@@ -68,4 +68,38 @@ Faz o deploy da infraestrutura para a conta AWS.cdk deploy:
 
   *obs: o pacote aws-sdk é necessário para interagir com os serviços da AWS, enquanto o uuid é utilizado para gerar identificadores únicos para os registros do DynamoDB.
 
+## Sobre alguns conceitos importantes do AWS:
+
+ * AWS: Amazon Web Services, plataforma de serviços em nuvem da Amazon.
+ * CDK: Cloud Development Kit, framework para definir e provisionar infraestrutura como código.
+ * Cli: Command Line Interface, ferramenta de linha de comando para interagir com a AWS.
+ * SDK: Software Development Kit, conjunto de ferramentas para desenvolver aplicações.
+ * SSO: Single Sign-On, autenticação única para acessar várias contas e serviços.
+ * CloudFormation: Serviço para criar e gerenciar recursos da AWS por meio de templates.
+ * IAM: Identity and Access Management, serviço para gerenciar permissões e usuários.
+ * S3: Simple Storage Service, serviço de armazenamento de objetos da AWS.
+ * EC2: Elastic Compute Cloud, serviço de máquinas virtuais da AWS.
+ * RDS: Relational Database Service, serviço de banco de dados relacional da AWS.
+ * CloudWatch: Serviço de monitoramento e observabilidade da AWS.
+ * Lambda: Função sem servidor que executa código em resposta a eventos.
+ * Função: Código executado sem servidor para processar eventos.
+ * Trigger: Evento que aciona a execução da função (ex: S3, API Gateway).
+ * Eventos: Dados que a função recebe como entrada ao ser acionada.
+ * Stack: Conjunto de recursos da AWS provisionados por um template.
+ * Runtime: Ambiente de execução, como Node.js, Python, ou Java.
+ * Concorrência: Número de execuções simultâneas, escalável automaticamente.
+ * Custo por Tempo de Execução: Cobrado por milissegundo com base na duração e memória alocada.
+ * Memória Consumida: Alocável de 128 MB a 10 GB por execução.
+ * Otimização: Reduzir tempo e memória ajustando código e alocação de memória.
+ * Escalabilidade: Automática e sem servidor, sem necessidade de gerenciar infraestrutura.
+ * Segurança: Funções executadas em ambientes isolados, com permissões granulares.
+ * Integração: Com serviços AWS e de terceiros, como S3, DynamoDB, e API Gateway.
+ * Balanceamento de Carga: Distribuição de tráfego entre várias funções Lambda.
+ * Resiliência: Execuções redundantes e isoladas, com monitoramento e rastreamento.
+ * API Gateway: Serviço para criar, publicar, manter, monitorar, receber requisições e responder a APIs.
+ * Monitoramento: Logs, métricas e rastreamento para depurar e otimizar funções.
+ * Gráficos de Monitoramento: CloudWatch oferece métricas como invocações e erros.
+ * Logs no CloudWatch: Registra detalhes de execução e erros de cada função Lambda.
+ * Monitoramento com X-Ray: Ferramenta para rastrear e depurar execuções distribuídas.
+
 Será adicionado mais componentes à infraestrutura. Fique ligado!
