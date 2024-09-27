@@ -2,8 +2,29 @@
 //arquivo de entrada de execução do CDK
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { ECommerceAwsStack } from '../lib/e_commerce_aws-stack';
+import { ECommerceAwsStack } from   '../lib/e_commerce_aws-stack';
+import { ProductsAppStack } from    '../lib/productsApp-stack';
+import { ECommerceApiStack } from   '../lib/e_commerceApi-stacks';
 
+//instancia a aplicação CDK
 const app = new cdk.App();
-new ECommerceAwsStack(app, 'ECommerceAwsStack', {
-});
+
+const env: cdk.Environment = {
+    account:"123456789012",
+    region:"us-east-1"
+};
+
+//tags para identificar os recursos
+const tags = {
+    cost: "ECommerce",
+    team: "DevOps"
+};
+
+//cria os stacks
+const productsAppStack = new ProductsAppStack(app, 'ProductsAppStack', {tags: tags, env: env});
+
+//cria o stack da api
+const eCommerceApiStack = new ECommerceApiStack(app, 'ECommerceApiStack', {tags: tags, env: env, productsFunction: productsAppStack.productsFetHandler});
+
+//deixa explicito que o stack da api depende do stack de produtos
+eCommerceApiStack.addDependency(productsAppStack);
