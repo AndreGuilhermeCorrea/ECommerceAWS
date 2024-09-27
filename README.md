@@ -106,4 +106,20 @@ Faz o deploy da infraestrutura para a conta AWS.cdk deploy:
  * Logs no CloudWatch: Registra detalhes de execução e erros de cada função Lambda.
  * Monitoramento com X-Ray: Ferramenta para rastrear e depurar execuções distribuídas.
 
-Será adicionado mais componentes à infraestrutura. Fique ligado!
+## Sobre o uso do Docker
+
+ * Docker: Plataforma de código aberto para desenvolvimento, envio e execução de aplicativos.
+ * Dockerfile: Arquivo de configuração para criar uma imagem Docker personalizada.
+ * Imagem: Modelo de um contêiner, criado a partir de um Dockerfile.
+ * Contêiner: Ambiente isolado para executar aplicativos, criado a partir de uma imagem.
+ * Build: Processo de criação de uma imagem Docker a partir de um Dockerfile.
+ * Run: Comando para criar e executar um contêiner a partir de uma imagem.
+ * Compose: Ferramenta para definir e executar aplicativos Docker com vários contêineres.
+ * Compose file: Arquivo de configuração para definir serviços, redes e volumes em um aplicativo Docker.
+ * Docker Hub: Registro de imagens Docker públicas e privadas, mantido pela Docker.
+ * Docker Desktop: Aplicativo para Windows e macOS que fornece uma experiência de desenvolvimento Docker.
+ * Docker Engine: Componente de tempo de execução para criar e executar contêineres Docker.
+ * Artefatos: Pacotes de código, dependências e configurações necessários para implantar uma aplicação.
+ * CDK x Docker: Docker para criar a imagem localmente na maquina para que o cdk possa fazer o processo de build e deploy na AWS pela imagem criada.
+
+*Será adicionado mais componentes à infraestrutura. Fique ligado!
