@@ -8,6 +8,8 @@ import { Construct } from "constructs";
 export class ProductsAppStack extends cdk.Stack {
    //propriedade que armazena a função lambda
    readonly productsFetHandler: lambdaNodejs.NodejsFunction;
+    //propriedade que armazena a função lambda
+   readonly productsAdminHandler: lambdaNodejs.NodejsFunction;
     //propriedade que armazena a tabela
    readonly productsTable: dynamodb.Table;
     //construtor: recebe o escopo, o id e as propriedades do stack
@@ -51,5 +53,29 @@ export class ProductsAppStack extends cdk.Stack {
     
         //concede permissão de leitura à tabela
         this.productsTable.grantReadData(this.productsFetHandler);
+
+        //cria uma função lambda e a atribui à propriedade de classe
+        this.productsAdminHandler = new lambdaNodejs.NodejsFunction(this, "ProductsAdminFunction", {
+            runtime: lambda.Runtime.NODEJS_20_X,
+            functionName: "ProductsAdminFunction",
+            entry: "lambda/products/ProductsAdminFunction.ts",
+            handler: "handler",
+            //configurações do ambiente
+            memorySize: 512,
+            bundling: {
+                //configurações do pacote
+                minify: true,
+                sourceMap: false,
+            },
+            timeout: cdk.Duration.seconds(5),
+            //concede permissão para conhecer a tabela
+            environment: {
+                //variaveis de ambiente passando o nome da tabela
+                PRODUCTS_TABLE_NAME: this.productsTable.tableName,
+            }
+        });
+        
+        //concede permissão de escrita à tabela
+        this.productsTable.grantWriteData(this.productsAdminHandler);
     }
 }
