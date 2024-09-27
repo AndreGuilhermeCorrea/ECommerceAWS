@@ -11,8 +11,8 @@ export class ProductsAppStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        //cria uma função lambda
-        const productsFetHandler = new lambdaNodejs.NodejsFunction(this, "ProductsFunction", {
+        //cria uma função lambda e a atribui à propriedade de classe
+        this.productsFetHandler = new lambdaNodejs.NodejsFunction(this, "ProductsFunction", {
             runtime: lambda.Runtime.NODEJS_20_X,
             functionName: "ProductsFunction",
             entry: "lambda/products/ProductsFunction.ts",
