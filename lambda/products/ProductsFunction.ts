@@ -12,6 +12,7 @@ export async function handler(event: APIGatewayProxyEvent,
         console.log(`API Gateway RequestId: ${apiRequestId} - Lambda Request ID: ${lambdaRequestId}`);    
         //obtem o metodo http
         const method = event.httpMethod;
+        //obtem o recurso
         if(event.resource === "/products") {
             if(event.httpMethod === "GET") {
                 console.log("GET /products");
@@ -22,7 +23,18 @@ export async function handler(event: APIGatewayProxyEvent,
                     }), 
                 };
             }
-        }
+            
+        } //verifica se o recurso é /products/{id}
+        else if(event.resource === "/products/{id}") {
+            //obtem o id do produto
+            const productId = event.pathParameters!.id as string;
+            console.log("GET /products/{productId}");
+            //verifica se o id é um numero
+            return {
+                statusCode: 200,
+                body: "GET /products/{productId}",
+            }; 
+        }//retorna erro
             return {
                 statusCode: 400,
                 body: JSON.stringify({
