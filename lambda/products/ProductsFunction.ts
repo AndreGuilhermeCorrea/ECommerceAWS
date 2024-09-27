@@ -7,7 +7,9 @@ export async function handler(event: APIGatewayProxyEvent,
         //obtem o id da requisição
         const lambdaRequestId = context.awsRequestId;
         //obtem o id da requisição http
-        const apiRequestId = event.requestContext.requestId;       
+        const apiRequestId = event.requestContext.requestId;  
+        //logs que exibem os ids no console (Lembrar que logs geram custos e nao devem expor informações sensíveis)
+        console.log(`API Gateway RequestId: ${apiRequestId} - Lambda Request ID: ${lambdaRequestId}`);    
         //obtem o metodo http
         const method = event.httpMethod;
         if(event.resource === "/products") {
