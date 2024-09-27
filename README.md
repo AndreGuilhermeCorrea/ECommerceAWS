@@ -4,7 +4,7 @@ Este é um projeto para desenvolvimento CDK com TypeScript.
 
 ## Sobre o projeto:
 
-O projeto consiste em uma aplicação de e-commerce com uma API RESTful que permite a criação, leitura, atualização e exclusão de produtos.  A aplicação é 100% em cloud, tendo toda sua infraestrutura criada em AWS CloudFormation com AWS CDK. A aplicação é composta por uma função Lambda que processa as requisições HTTP, um banco de dados DynamoDB para armazenar os produtos, e uma API Gateway para expor a função Lambda na internet.
+O projeto consiste no backend de uma aplicação de e-commerce com uma API RESTful que permite a criação, leitura, atualização e exclusão de produtos.  A aplicação é 100% em cloud, tendo toda sua infraestrutura criada em AWS CloudFormation com AWS CDK. A aplicação é composta por uma função Lambda que processa as requisições HTTP, um banco de dados DynamoDB para armazenar os produtos, e uma API Gateway para expor a função Lambda na internet.
 
 ## Sobre as tecnologias utilizadas:
 
@@ -32,6 +32,7 @@ O ambiente de desenvolvimento utilizado no projeto foi preparado com as seguinte
  * RDS: Relational Database Service, serviço de banco de dados relacional da AWS.
  * CloudWatch: Serviço de monitoramento e observabilidade da AWS.
  * Lambda: Função sem servidor que executa código em resposta a eventos.
+ * Lambda Layer: Camada de código compartilhada entre várias funções Lambda.
  * Função: Código executado sem servidor para processar eventos.
  * Trigger: Evento que aciona a execução da função (ex: S3, API Gateway).
  * Eventos: Dados que a função recebe como entrada ao ser acionada.
@@ -79,11 +80,40 @@ O ambiente de desenvolvimento utilizado no projeto foi preparado com as seguinte
  * Requisição: Ação de solicitar dados de um servidor, com métodos HTTP como GET, POST, PUT, DELETE.
  * GET: Por hora apenas, caso seja enviado uma requisição POST o API Gateway irá retornar um erro 405 Method Not Allowed com a mensagem: "Error".
 
- *obs:  utilizado URL gerado pelo deploy da API Gateway para testar as requisições HTTP.
+ *obs: para testar a API, é necessário criar uma coleção no Postman com as requisições HTTP para a API Gateway.
+ *obs: utilizado URL gerado pelo deploy da API Gateway para testar as requisições HTTP.
         "/": rota principal(root) da API
         "/products": resposta da função Lambda criada (Configurada na função de produtos) em json.
 
-### Alguns comandos importantes:
+ ## Sobre o uso do DynamoDB
+
+ * DynamoDB: Serviço de banco de dados NoSQL da AWS, totalmente gerenciado e escalável (chave e valor).
+ * Tabela: Coleção de itens, com chaves primárias e secundárias, armazenada no DynamoDB.
+ * Item: Registro na tabela, com atributos e valores, identificado por uma chave primária.
+ * Chave primária: Atributo único que identifica cada item na tabela, podendo ser simples ou composta.
+ * Chave de partição: Parte da chave primária que determina a partição onde o item será armazenado.
+ * Chave de classificação: Parte da chave primária que determina a ordenação dos itens na partição.
+ * Índice: Estrutura secundária para consultar e ordenar itens por atributos diferentes da chave primária.
+ * Índice global: Índice que abrange toda a tabela, permitindo consultas por atributos não-chave.
+ * Índice local: Índice que abrange apenas uma partição, permitindo consultas por atributos não-chave.
+ * Capacidade: Configuração de leitura e gravação para a tabela, com provisionamento ou sob demanda.
+ * Partições: Divisões lógicas da tabela para distribuir e escalonar a capacidade de leitura e gravação.
+ * Escalabilidade: Automática e sem servidor, com ajuste dinâmico da capacidade conforme a demanda.
+ * Consistência: Eventual ou forte, para leituras e gravações com garantia de integridade dos dados.
+ * Acesso: Por meio de APIs, SDKs e consoles da AWS, com suporte a transações e ACID.
+ * Monitoramento: Métricas e alarmes para monitorar a capacidade, desempenho e custo da tabela.
+ * Backup: Cópias de segurança automáticas e manuais para proteger os dados da tabela.
+ * Restauração: Recuperação de itens e tabelas excluídas, com histórico de alterações.
+ * Segurança: Criptografia, controle de acesso e auditoria para proteger os dados da tabela.
+ * Auditoria: Registros de eventos e atividades para rastrear e monitorar o acesso aos dados.
+ * Desempenho: Otimização de consultas, índices e atributos para melhorar a velocidade de acesso.
+ * Escrita: Operações de gravação atômicas, condicionais e em lote para manter a consistência.
+ * Leitura: Operações de consulta, varredura e projeção para recuperar e visualizar os dados.
+ * Regras de negócio: Validações, triggers e transações para garantir a integridade e consistência dos dados.
+
+  *obs: o dynamoDB permite com itens diferentes, com atributos diferentes, e com valores diferentes, porém com a mesma chave primária.
+
+## Alguns comandos importantes:
 
  Para uso do cdk estou utilizando acesso por `sso`:
  * `aws sso login --profile <nome_profile>`
