@@ -11,48 +11,46 @@ O ambiente de desenvolvimento utilizado no projeto foi preparado com as seguinte
 * Postman:              - Aplicativo utilizado para testar e validar as requisições HTTP, tanto localmente quanto na AWS.
 * Docker Desktop:       - Ferramenta utilizada para compilar e testar localmente as funções Lambda antes de implantá-las na AWS.
 
-Para uso do cdk estou utilizando acesso por sso:
+Para uso do cdk estou utilizando acesso por `sso`:
  * `aws sso login --profile <nome_profile>`
 
- *obs: poderia ser por usuário iam com as respectivas permissões
+  *obs: poderia ser por usuário `iam` com as respectivas permissões
 
-### Passos:
- Criar o diretório do projeto (ECommerceAWS):
+### Alguns passosimportantes:
+ Cria o diretório do projeto (ECommerceAWS):
 
  * `mkdir ECommerceAWS && cd ECommerceAWS`
  
- Instalar o AWS CDK:
+ Instala o AWS CDK:
 
  * `npm install -g aws-cdk`
 
- Inicializar o CDK com suporte a TypeScript:
+ Inicializa o CDK com suporte a TypeScript:
 
  * `cdk init app --language typescript`
 
- Isso criará a estrutura inicial do projeto, incluindo o cdk.json e a pasta lib para as definições da infraestrutura.
+  *Obs: cria a estrutura inicial do projeto, incluindo o cdk.json e a pasta lib para as definições da infraestrutura.
 
- Instalar as dependências necessárias:
+ Instala as dependências necessárias:
 
  * `npm install typescript ts-node @types/node`
 
- Configurar o ambiente TypeScript:
+  *obs: o CDK já configura o tsconfig.json automaticamente.
 
- O CDK já configura o tsconfig.json automaticamente, então você só precisa garantir que está configurado corretamente para o TypeScript.
-
- Gerar o template CloudFormation do código TypeScript:
+ Gera o template CloudFormation do código TypeScript:
 
  * `cdk synth`
 
- Preparar o ambiente da AWS para receber os recursos (apenas na primeira execução). cdk bootstrap: 
+ Prepara o ambiente da AWS para receber os recursos (apenas na primeira execução). cdk bootstrap: 
 
  * `cdk bootstrap`
 
 Faz o deploy da infraestrutura para a conta AWS.cdk deploy: 
  * `cdk deploy`
 
-O arquivo `cdk.json` informa ao CDK Toolkit como executar sua aplicação.
+  *obs: o arquivo `cdk.json` informa ao CDK Toolkit como executar sua aplicação.
 
-## Comandos úteis
+## Outros comandos úteis
 
  * `npm run build`   compila TypeScript para JavaScript
  * `npm run watch`   observa por mudanças e compila
@@ -61,4 +59,4 @@ O arquivo `cdk.json` informa ao CDK Toolkit como executar sua aplicação.
  * `npx cdk diff`    compara a stack implantada com o estado atual
  * `npx cdk synth`   emite o template CloudFormation sintetizado
 
-Adicionar mais componentes à infraestrutura, como bancos de dados RDS para armazenar informações de pedidos, ou um API Gateway para gerenciar as requisições HTTP.
+Será adicionado mais componentes à infraestrutura. Fique ligado!
