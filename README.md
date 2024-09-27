@@ -96,7 +96,11 @@ Faz o deploy da infraestrutura para a conta AWS.cdk deploy:
  * Integração: Com serviços AWS e de terceiros, como S3, DynamoDB, e API Gateway.
  * Balanceamento de Carga: Distribuição de tráfego entre várias funções Lambda.
  * Resiliência: Execuções redundantes e isoladas, com monitoramento e rastreamento.
- * API Gateway: Serviço para criar, publicar, manter, monitorar, receber requisições e responder a APIs.
+ * API Gateway: Recursos que podem ser postos em serviços para criar, publicar, manter, monitorar, receber requisições e responder a APIs.
+ * Validações de URI: No API Gateway, é possível validar parâmetros de caminho (path parameters), consultas (query strings) e headers para garantir que as requisições sigam o formato esperado antes de atingir o backend.
+ * Validações de verbo HTTP: No API Gateway, é possível validar o verbo HTTP da requisição, garantindo que apenas métodos HTTP (GET, POST, PUT, DELETE, etc.) sejam aceitos.
+ * Validações de corpo da requisição: No API Gateway, é possível validar o corpo da requisição, garantindo que os dados enviados sigam o formato esperado antes de atingir o backend.
+ * Integração com outros recursos: No API Gateway, é possível integrar diretamente com outros serviços da AWS, como Lambda, DynamoDB, S3, e outros.
  * Monitoramento: Logs, métricas e rastreamento para depurar e otimizar funções.
  * Gráficos de Monitoramento: CloudWatch oferece métricas como invocações e erros.
  * Logs no CloudWatch: Registra detalhes de execução e erros de cada função Lambda.
